@@ -34,7 +34,7 @@ class Download():
 
         storage = Storage(video_id, language)
         file_path = storage.get_file_path()
-        with open(file_path) as f:
+        with open(file_path,encoding='utf-8') as f:
             output = self.get_captions_from_output(f.read(), language)
         storage.remove_file()
         return output
