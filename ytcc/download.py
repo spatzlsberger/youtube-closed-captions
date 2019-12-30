@@ -39,6 +39,32 @@ class Download():
         storage.remove_file()
         return output
 
+    def get_captions_batch(self, video_ids: list, language: str = 'en') -> dict:
+        """
+        Process captions in a batch. 
+
+        Parameters:
+        video_ids (list): list of video ids to be processed.
+        language (str): two character language string for the language of the caption to be returned. 
+
+        Returns:
+        dict: dictionary of video_id and caption pairs from the video_ids list passed in.
+        """
+       
+        if(len(video_ids) == 0): return {}
+
+        caption_dict = {}
+
+        for video in video_ids:
+            try:
+                captions = self.get_captions(video,language)
+                caption_dict[video] = captions
+            except Exception:
+                continue
+
+        return caption_dict
+        
+
     def get_result(self, video_id: str, language: str = 'en') -> int:
         opts = self.opts
         if language:
